@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 var cors = require('cors');
 const list = require('./routes/list.route');
 const card = require('./routes/card.route');
+const project = require('./routes/project.route');
 
 
 // Set up mongoose connection
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/lists', list);
 app.use('/cards', card);
+app.use('/project', project);
 
 let port = 1234;
 

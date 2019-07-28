@@ -1,6 +1,5 @@
 const List = require('../models/list.model');
 const Card = require('../models/card.model');
-var mongoose = require('mongoose');
 
 
 //Simple version, without validation or sanitation
@@ -22,7 +21,8 @@ exports.list_create = function (req, res) {
     let list = new List(
         {
             title: req.body.title,
-            cards: []
+            cards: [],
+            project: req.body.project
         }
     )
 
@@ -58,4 +58,14 @@ exports.add_Card_Update_List = function (req, res) {
         }
         
     })
+}
+
+exports.fetch_lists_from_project = function (req, res) {
+    List.find({project: req.params.project}).
+    populate('cards').
+        exec((err, list) => {
+            if (err) return next(err);
+            console.log("list", list);
+            res.status(200).send(list);
+        })
 }
